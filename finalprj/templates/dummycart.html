@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <!-- icon link from bootstrap page -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Cart</title>
+</head>    
+<body>
+    {% block 'main' %}
+    <h3 align="center" class="p-2">Cart Details</h3>
+    <!-- <h1>Linking bootstrap successfully</h1> -->
+    <div class="container box">
+        <!-- customer details start -->
+
+        <div class="row">
+            <div class="col-md-9 p-2">
+                <h5 class="bg-info text-white p-2">Customer Details</h5>
+                {% for x in Products %}
+                {% if forloop.counter == 1 %}
+                <p><strong>Name:</strong>&nbsp;&nbsp; {{x.uid.first_name}}</p>
+                <p><strong>Allopathy:</strong>&nbsp;&nbsp; 898998899</p>
+                <p><strong>Email:</strong>&nbsp;&nbsp; {{x.uid.email}}</p>
+                {% endif %}
+                {% endfor %} 
+            </div>
+            <div class="col-md-3 p-2">
+                <h5 class="bg-info text-white p-2">Total Amount</h5>
+                <p><strong>Total({{n}} items)</strong>&nbsp;&nbsp; Rs. {{total}}</p>
+                <p><strong>Total Amount</strong>&nbsp;&nbsp; Rs.{{total}}</p>
+                <a href="/placeorder"><button class="btn btn-outline-info">Place Orders</button></a>
+
+            </div>
+        </div>
+
+        <!-- customer details start -->
+        <!-- product details part start -->
+        <div class="row">
+            {% for x in Products %}
+            <!-- <div class="col-md-8 mt-4 mx-auto">
+                <div class="row"> -->
+                    <div class="col-md-6">
+                        <img src="{{x.pid.pimage.url}}" alt="myImage" width="100%">
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Product Name:</strong>&nbsp;&nbsp;{{x.pid.name}}</p>
+                        <p><strong>Price:</strong>&nbsp;&nbsp;Rs {{x.pid.price}}</p>
+                        <!-- category start -->
+                        {% if x.pid.cat == 1 %}
+                        <p><strong>Category:</strong>&nbsp;&nbsp; Allopathy</p>
+                        {% elif x.pid.cat == 2 %}
+                        <p><strong>Category:</strong>&nbsp;&nbsp; Homeopathy</p>
+                        {% else %}
+                        <p><strong>Category:</strong>&nbsp;&nbsp; Ayurvedic</p>
+                        {% endif %}
+                        <!-- category end -->
+                        <p><strong>Product details:</strong>&nbsp;&nbsp;{{x.pid.pdetails}}</p>
+                        <br>
+                        <p>
+                            <strong>QTY:</strong>
+                            <!-- #0 assign for addition -->
+                            <a href="/updateqty/0/{{x.id}}"><button class="btn btn-danger">-</button></a>
+                            <input type="number" value="{{x.qty}}">
+                            <!-- #0 assign for addition -->
+                            <a href="/updateqty/1/{{x.id}}"><button class="btn btn-success">+</button></a>
+                        </p>
+                        <a href="/remove/{{x.id}}"><button class="btn btn-outline-info">Remove</button></a>
+
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- product details part end -->
+    </div>
+
+{% endblock 'main' %}
+    <!-- javascript -->
+    <script scr="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/popper.js"></script>
+</body>
+</html>

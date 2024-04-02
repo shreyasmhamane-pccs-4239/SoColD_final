@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+    <!-- <h1 align="center">Disign  Form </h1> -->
+      <div class="container box">
+        <div class="row">
+            <div class="col-md-4 mt-5 mx-auto shadow p-4 rounded">
+
+              <!-- if error message is not empty, display it -->
+              {% if errormsg %}
+              <div class="alert alert-danger">
+                   {{ errormsg }}
+              </div>
+              {% endif %}
+
+              <form method="post" action="">
+                {% csrf_token %} 
+                <h2>User registration</h2>
+                <div class="mb-3">
+                    <label for="Input1" class="form-label"><strong>Username</strong></label>
+                    <input type="email" class="form-control" name="uname" id="Input1" placeholder="name@123.com">
+                </div>
+                <div class="mb-3">
+                    <label for="Input2" class="form-label"><strong>email</strong></label>
+                    <input type="email" class="form-control" name="uemail" id="Input2" placeholder="Enter email"> 
+                </div>
+                <div class="mb-3">
+                    <label for="Input3" class="form-label"><strong>address</strong></label>
+                    <input type="address" class="form-control" name="uaddress" id="Inpu3" placeholder="Enter address"> 
+                </div>
+                <div class="mb-3">
+                    <label for="Input4" class="form-label"><strong>Contact Number</strong></label>
+                    <input type="contact" class="form-control" name="ucontact" id="Input4" placeholder="Enter Phone  Number"> 
+                </div>
+                <div class="mb-3">
+                    <label for="Input4" class="form-label"><strong>Password</strong></label>
+                    <input type="password" class="form-control" name="upass" id="Input4" placeholder="Enter Password"> 
+                </div>
+                <div class="mb-3">
+                    <label for="Input5" class="form-label"><strong>Confirmed Password</strong></label>
+                    <input type="password" class="form-control" name="cpass" id="Input5" placeholder=" Enter Same Password"> 
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Register" class="btn btn-outline-primary">
+                    Already User ?&nbsp;&nbsp;<a href="/loginn" >Login</a>
+                </div>
+                <!-- if registration was successful, display success message -->
+                {% if success %}
+                <div class="alert alert-success">
+                    {{ success }}
+                </div>
+                {% endif %}
+            </form>
+            
+            </div>
+        </div>
+      </div>
+
+<!-- javascript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/popper.js"></script>
+
+</body>
+</html>

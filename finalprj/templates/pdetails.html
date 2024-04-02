@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoCold</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: hsl(180, 7%, 5%);
+            background-color: rgb(255, 246, 246);
+        }
+
+        .navbar {
+            background-color: hsl(140, 13%, 95%); /* Change the navbar background color */
+            color: #faf9f9; /* Change the navbar text color */
+            font-size: 18px; /* Change the font size of navbar items */
+        }
+
+        .navbar-brand {
+            font-weight: bold; /* Change the font weight of the brand */
+            font-size: 24px; /* Change the font size of the brand */
+        }
+
+        .navbar-nav .nav-link {
+            color: rgb(221, 249, 166); /* Change the text color of navbar links */
+        }
+
+        .navbar-toggler-icon {
+            background-color: hsl(0, 83%, 2%); /* Change the color of the toggler icon */
+        }
+
+        /* Add more styles as needed for other elements */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <nav class="navbar navbar-expand-lg navbar bg-success p-3 mb-2  text-white" data-bs-theme="dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="index">SoColD</a>  
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/1">Energy Drink</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/2">Health Drinks</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/3">Soft Drink</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/4">Cold Drink</a>
+                                </li>
+                            </ul>
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search For Products..." aria-label="Search">
+                                <button class="btn btn-light" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div><!-- header end -->
+
+
+        <div class="row">
+            <div class="col-md-8 mt-4 mx-auto">
+                <div class="row">
+                    {% for x in products %}
+                    <div class="col-md-4">
+                        <img src="{{x.pimage.url}}" alt="" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Product Name:</strong>&nbsp; &nbsp; &nbsp;{{x.name}}</p>
+                        <p><strong>Price:</strong>&nbsp; &nbsp; &nbsp;{{x.price}}</p>
+
+                        {% if x.category == 1 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Energy Drink</p>
+                        {% elif x.category == 2 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Health Drinks</p>
+                        {% elif x.category == 3 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Soft Drink</p>
+                        {% elif x.category == 4 %}
+                            <p><strong>Category:</strong>&nbsp; &nbsp; &nbsp;Cold Drink</p>
+                        {% endif %}
+                        <p><strong>Product Details</strong>&nbsp;&nbsp;{{x.pdetails}}</p>
+                        <br>
+                        <a href="/addtocart/{{x.id}}"><button class="btn btn-info">Add to cart</button></a>
+                        <a href="/viewcart"><button class="btn btn-secondary">Show cart</button></a> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/home"><button class="btn btn-warning">Shop more</button></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

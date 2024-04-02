@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoCold</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: hsl(180, 7%, 5%);
+            background-color: rgb(255, 246, 246);
+        }
+
+        .navbar {
+            background-color: hsl(140, 13%, 95%);
+            color: #faf9f9;
+            font-size: 18px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgb(221, 249, 166);
+        }
+
+        .navbar-toggler-icon {
+            background-color: hsl(0, 83%, 2%);
+        }
+
+        .anchor {
+            text-decoration: none;
+        }
+
+        /* Add more styles as needed for other elements */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <nav class="navbar navbar-expand-lg navbar bg-success p-3 mb-2 text-white" data-bs-theme="dark">
+                    <div class="container-fluid">
+                        <span style='font-size:30px;'>&#129380;</span><a class="navbar-brand" href="/home"><strong>SoColD</strong></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/1">Energy Drink</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/2">Health Drinks</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/3">Soft Drink</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/catfilter/4">Cold Drink</a>
+                                </li>
+                            </ul>
+                            <form class="d-flex" action="/search" method="GET">
+                                <input class="form-control col-md-2" type="search" name="query" placeholder="Search For Products..." aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div><!-- header end -->
+
+        <div class="row">
+            <div class="col-md-9 p-2">
+                <h5 class="bg-primary-subtle text-emphasis-primary">Customers details</h5>
+                {% for x in products %}
+                {% if forloop.counter == 1 %}
+                <p><strong>Name:</strong>&nbsp;&nbsp;{{x.uid.username}}</p>
+                <p><strong>Email:</strong>&nbsp;&nbsp; {{ x.uid.email }}</p>
+                <p><strong>Address:</strong>&nbsp;&nbsp; {{x.uid.first_name}}</p>
+                <p><strong>Contact:</strong>&nbsp;{{x.uid.last_name}}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-3 p-2">
+                <h5 class="bg-primary-subtle text-emphasis-primary">Total amount</h5>
+                <p><strong>Total ({{n}} items):</strong>&nbsp;&nbsp;{{total}}</p>
+                <p><strong>Total Price To Be Paid:</strong>&nbsp;&nbsp;{{total}}</p>
+                <a href="/placeorder"><button class='btn btn-warning'>Place Order</button></a>
+            </div>
+        </div>
+
+        <h5 class="bg-primary-subtle text-emphasis-primary">Cart details</h5>
+        <div class="row">
+            {% for x in products %}
+            <div class="col-md-4">
+                <img src="{{x.pid.pimage.url}}" alt="" style="width: 100%; height: auto;">
+            </div>
+            <div class="col-md-8">
+                <p><strong>Product name:</strong>&nbsp;&nbsp;{{x.pid.name}}</p>
+                <p><strong>Price:</strong>&nbsp;&nbsp;{{x.pid.price}}</p>
+                {% if x.pid.category == 1 %}
+                <p><strong>Category:</strong>&nbsp;&nbsp;Energy Drink</p>
+                {% elif x.pid.category == 2 %}
+                <p><strong>Category:</strong>&nbsp;&nbsp;Health Drink</p>
+                {% elif x.pid.category == 3 %}
+                <p><strong>Category:</strong>&nbsp;&nbsp;Soft Drink</p>
+                {% elif x.pid.category == 4 %}
+                <p><strong>Category:</strong>&nbsp;&nbsp;Cold Drink</p>
+                {% endif %}
+                <p><strong>Product Details:</strong>&nbsp;&nbsp;{{x.pid.pdetails}}</p>
+                <p>
+                    <strong>Qty:</strong>
+                    <a href="/updateqty/0/{{x.id}}"><button class="btn btn-danger">-</button></a>
+                    <input type="number" value="{{x.qty}}">
+                    <a href="/updateqty/1/{{x.id}}"><button class="btn btn-success">+</button></a>
+                </p>
+                <a href="/remove/{{x.id}}"><button class="btn btn-danger">Remove</button></a>
+            </div>
+            {% endfor %}
+        </div><!-- end of product details -->
+    </div>
+</body>
+
+</html>
